@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application to Be My Friend</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #e8d5f2 50%, #ffd9e8 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .section {
+            min-height: 100vh;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        .section.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card, .content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #6b4c9a;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #6b4c9a;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        p {
+            color: #8b7ba8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e8d5f2;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #b794f6;
+            box-shadow: 0 0 0 3px rgba(183, 148, 246, 0.1);
+        }
+
+        small {
+            color: #a89bb8;
+            font-size: 0.85rem;
+            margin: 0.5rem 0 1rem 0;
+            display: block;
+            font-weight: 300;
+        }
+
+        button {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #b794f6 0%, #f5a3d0 100%);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(183, 148, 246, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .reason {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            color: #6b4c9a;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .reason:hover {
+            transform: translateY(-5px);
+        }
+
+        .terms-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: left;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .terms-box p {
+            margin-bottom: 1rem;
+        }
+
+        .terms-box ul {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .terms-box li {
+            color: #8b7ba8;
+            font-size: 1rem;
+            margin: 0.8rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .terms-box li:before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #b794f6;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .warning {
+            color: #d97398;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #8b7ba8;
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .card, .content {
+                padding: 2rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Security Entry Section -->
+    <div id="security-section" class="section active">
+        <div class="card">
+            <h1>Quick Check Before We Begin 🔐</h1>
+            <p>Just for security purposes.</p>
+            <form id="security-form">
+                <input type="email" id="visitor-email" placeholder="Email Address" required>
+                <input type="tel" id="visitor-phone" placeholder="Phone Number" required>
+                <small>Your email and phone number are collected only for security purposes.</small>
+                <button type="submit" id="submit-btn">Enter Website →</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div id="hero-section" class="section">
+        <div class="content">
+            <h1>Hi 👋<br>This website exists for one very important reason.</h1>
+            <p>Because asking this on WhatsApp felt too basic.</p>
+            <button onclick="showSection('question-section')">Continue →</button>
+        </div>
+    </div>
+
+    <!-- Main Question Section -->
+    <div id="question-section" class="section">
+        <div class="content">
+            <h1>Will you be my friend?</h1>
+            <p>No pressure. But yes is highly recommended.</p>
+            <div class="buttons">
+                <button onclick="showSection('reasons-section')">Yes 😄</button>
+                <button onclick="showSection('reasons-section')">Let me think 🤔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why You Should Be My Friend Section -->
+    <div id="reasons-section" class="section">
+        <div class="content">
+            <h2>Why You Should Be My Friend</h2>
+            <div class="grid">
+                <div class="reason">✅ I reply fast (unless I'm asleep or overthinking)</div>
+                <div class="reason">✅ Free bad jokes included</div>
+                <div class="reason">✅ 24/7 emotional support (terms & conditions apply)</div>
+                <div class="reason">✅ I'll hype you up even when you're wrong</div>
+                <div class="reason">✅ Friendship comes with lifetime updates</div>
+            </div>
+            <small>Friendship subscription is 100% free. No ads. No drama.</small>
+            <button onclick="showSection('terms-section')">Continue →</button>
+        </div>
+    </div>
+
+    <!-- Terms & Conditions Section -->
+    <div id="terms-section" class="section">
+        <div class="content">
+            <h2>Friendship Terms & Conditions</h2>
+            <div class="terms-box">
+                <p><strong>By clicking YES, you agree to:</strong></p>
+                <ul>
+                    <li>Laugh at at least one of my jokes</li>
+                    <li>Random conversations at random times</li>
+                    <li>Occasional "Are you okay?" messages</li>
+                    <li>Being stuck with me as a friend forever</li>
+                </ul>
+                <p class="warning">⚠️ Breaking this contract is emotionally illegal.</p>
+            </div>
+            <button onclick="showSection('final-section')">I Accept →</button>
+        </div>
+    </div>
+
+    <!-- Final Call-To-Action Section -->
+    <div id="final-section" class="section">
+        <div class="content">
+            <h1>So… what do you say?</h1>
+            <div class="buttons">
+                <button onclick="showSection('congrats-section')">Yes, let's be friends 💖</button>
+                <button onclick="showSection('congrats-section')">Obviously yes 🙄</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Congratulations Section -->
+    <div id="congrats-section" class="section">
+        <div class="content">
+            <h1>Congratulations 🎉</h1>
+            <p>You just unlocked a new friend.</p>
+        </div>
+    </div>
+
+    <footer>Design & Development by Syed Mannan Ishaqi</footer>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('security-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('visitor-email').value;
+            const phone = document.getElementById('visitor-phone').value;
+            const submitBtn = document.getElementById('submit-btn');
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            try {
+                const iframe = document.createElement('iframe');
+                iframe.name = 'hidden_iframe';
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+                
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdZYZBZRAU-J0WJTOTSGnonqxiYPAuB4F4WThoFG8Xhq6_PMw/formResponse';
+                form.target = 'hidden_iframe';
+                
+                const emailInput = document.createElement('input');
+                emailInput.type = 'hidden';
+                emailInput.name = 'entry.1219667166';
+                emailInput.value = email;
+                form.appendChild(emailInput);
+                
+                const phoneInput = document.createElement('input');
+                phoneInput.type = 'hidden';
+                phoneInput.name = 'entry.842611935';
+                phoneInput.value = phone;
+                form.appendChild(phoneInput);
+                
+                document.body.appendChild(form);
+                form.submit();
+                
+                setTimeout(() => {
+                    document.body.removeChild(form);
+                    document.body.removeChild(iframe);
+                }, 1000);
+                
+                setTimeout(() => {
+                    submitBtn.textContent = 'Success! ✓';
+                    setTimeout(() => {
+                        showSection('hero-section');
+                    }, 500);
+                }, 800);
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                submitBtn.textContent = 'Proceeding...';
+                setTimeout(() => {
+                    showSection('hero-section');
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
